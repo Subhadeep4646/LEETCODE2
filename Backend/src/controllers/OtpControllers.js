@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const User= require('../models/user');
-const sendEmail = require("../utils/sendEmail"); // your mail sending util
+const sendEmail = require("../utils/SendEmail"); // your mail sending util
 const bcrypt = require('bcrypt');
 
 
