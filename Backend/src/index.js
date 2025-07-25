@@ -54,19 +54,24 @@ if (process.env.NODE_ENV === 'production') {
   }
 
 
-const InitializeConnection = async()=>{
-    try{
-        await Promise.all([connectDB(),redisClient.connect()]);
-        console.log('Redis connected successfully');
-       //ng the problem router to handle problem-related routes
+  const InitializeConnection = async () => {
+    try {
+        await connectDB();
+
+        if (!redisClient.isOpen) {
+            await redisClient.connect();
+        }
+
+        console.log('✅ Redis connected successfully');
+        
         app.listen(process.env.PORT, () => {
-            console.log(`Server is running on port ${process.env.PORT}`);
-    })
-    }   
-    catch(err){
-        console.error('Redis connection error:', err);
+            console.log(`🚀 Server is running on port ${process.env.PORT}`);
+        });
+    } catch (err) {
+        console.error('❌ Initialization error:', err);
     }
-}
+};
+
 
 InitializeConnection();
 
